@@ -1,0 +1,35 @@
+{
+  "name": "pong.v2",
+  "version": "1.0.0",
+  "description": "Pong Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --config config/webpack-config-dev.js",
+    "prod": "webpack --config config/webpack-config-prod.js",
+    "dev": "webpack --config config/webpack-config-dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bolo0010/pong.v2.git"
+  },
+  "author": "Artur Masłowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bolo0010/pong.v2/issues"
+  },
+  "homepage": "https://github.com/bolo0010/pong.v2#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.1.0",
+    "node-sass": "^6.0.1",
+    "sass": "^1.36.0",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
+    "webpack": "^5.47.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
