@@ -1,12 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <title>Pong Game</title>
     </head>
     <body>
-        <h1>Dzień dobry świecie!</h1>
-        <h2>Tip: Check your console</h2>
+        <div class="container">
+            <div class="game-scoreboard">
+                <div class="game-scoreboard__players">
+                    <span class="game-scoreboard__player game-scoreboard__player1--name">Player 1</span>
+                    <span class="game-scoreboard__player game-scoreboard__player1--score">0</span>
+                </div>
+                <div class="game-scoreboard__players">
+                    <span class="game-scoreboard__player game-scoreboard__player2--name">Player 2</span>
+                    <span class="game-scoreboard__player game-scoreboard__player2--score">0</span>
+                </div>
+            </div>
+            <div class="game-field">
+                <canvas class="game-field__canvas">
+                </canvas>
+            </div>
+            <div class="game-options">
+                <buttons class="game-options__buttons game-options__buttons--start" data-button="start">Start</buttons>
+                <buttons class="game-options__buttons game-options__buttons--points" data-button="points"></buttons>
+                <buttons class="game-options__buttons game-options__buttons--difficulty" data-button="difficulty"></buttons>
+<!--                debugowanie-->
+                <buttons class="game-options__buttons game-options__buttons--debug" data-button="debug">Debug</buttons>
+<!--                debugowanie-->
+            </div>
+        </div>
     </body>
-    
 </html>

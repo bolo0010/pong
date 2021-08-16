@@ -1,3 +1,13 @@
-import "/src/sass/style.sass"
+import "/src/sass/style.sass";
+import Main from "./Main";
+import getCanvas from "./canvas";
 
-console.log("Hello World!");
+document.addEventListener('DOMContentLoaded', (event) => {
+    const context = getCanvas();
+    const main = new Main(context);
+    main.addListenersOnButtons();
+})
+
+
+
+
