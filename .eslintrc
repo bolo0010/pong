@@ -7,5 +7,11 @@
   },
   "parser": "babel-eslint",
   "extends": "airbnb",
-  "rules": {}
+  "rules": {
+    "indent": [2, "tab"],
+    "no-tabs": 0,
+    "no-mixed-spaces-and-tabs": 0,
+    "import/no-unresolved": "off",
+    "max-len": 0
+  }
 }
