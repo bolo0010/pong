@@ -12,7 +12,7 @@ import Ball from './Ball';
 import Player from './Player';
 import Ai from './Ai';
 import Scoreboard from './Scoreboard';
-import getCanvas from "./canvas";
+import getCanvas from './canvas';
 
 export default class Main {
 	#difficulty;
@@ -44,10 +44,6 @@ export default class Main {
 
 	getDifficulty() {
 		return this.#difficulty;
-	}
-
-	getPointsToWin() {
-		return this.#pointsToWin;
 	}
 
 	setDifficulty(choice) {

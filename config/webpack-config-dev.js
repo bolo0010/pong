@@ -1,5 +1,7 @@
 const path = require('path');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
@@ -12,7 +14,6 @@ module.exports = {
 		path: path.join(__dirname, '../', 'dist'),
 	},
 	devServer: {
-		host: '192.168.0.187',
 		port: 9000,
 		open: true,
 		hot: true,
