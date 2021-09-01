@@ -12,6 +12,7 @@ import Ball from './Ball';
 import Player from './Player';
 import Ai from './Ai';
 import Scoreboard from './Scoreboard';
+import getCanvas from "./canvas";
 
 export default class Main {
 	#difficulty;
@@ -36,10 +37,9 @@ export default class Main {
 
 	#drawDebug;
 
-	constructor(context) {
+	constructor() {
 		this.setDifficulty('easy');
 		this.setPointsToWin(3);
-		this.#context = context;
 	}
 
 	getDifficulty() {
@@ -134,18 +134,46 @@ export default class Main {
 		}
 	}
 
+	#handleMoveTouch(event) {
+		const relativeX = event.changedTouches[0].screenX - canvas.offsetLeft;
+		if (relativeX > 0 && relativeX < canvas.width) this.#player1.paddle.paddleStartSize = relativeX - paddleWidth / 2;
+	}
+
+	#mouseMoveHandler(event) {
+		const relativeX = event.offsetX - canvas.offsetLeft;
+		if (relativeX > 0 && relativeX < canvas.width) this.#player1.paddle.paddleStartSize = relativeX - paddleWidth / 2;
+	}
+
+	#setMobileOptions(isStarted) {
+		if (window.innerWidth > 1024) return;
+		const gameScoreboard = document.querySelector('.game-scoreboard');
+		const gameOptions = document.querySelector('.game-options');
+
+		if (isStarted) {
+			gameScoreboard.style.opacity = 0.2;
+			gameOptions.style.opacity = 0.2;
+		} else {
+			gameScoreboard.style.opacity = 0;
+			gameOptions.style.opacity = 1;
+		}
+	}
+
 	#handleListenersOnButtons = (e) => {
 		const dataButtonAttribute = e.target.dataset.button;
 		switch (dataButtonAttribute) {
 		case 'start':
 		{
 			if (e.target.hasAttribute('dataset', 'data-started')) {
+				this.#setMobileOptions(false);
 				cancelAnimationFrame(this.#requestAnimationFrameID);
 				this.#context.clearRect(0, 0, gameFieldInnerWidth, gameFieldInnerHeight);
 				this.#disableButtons(false);
 				canvas.removeEventListener('mousemove', this.#mouseMoveHandler.bind(this), false);
+				document.removeEventListener('touchmove', this.#handleMoveTouch.bind(this), false);
 				break;
 			}
+			this.#context = getCanvas();
+			this.#setMobileOptions(true);
 			this.#ball = new Ball(this.#context, this.#difficulty);
 			this.#debugBall = new Ball(this.#context, this.#difficulty);
 			this.#player1 = new Player(this.#context);
@@ -156,6 +184,7 @@ export default class Main {
 			this.#drawDebug = true;
 			this.#randomBallStartDirection();
 			canvas.addEventListener('mousemove', this.#mouseMoveHandler.bind(this), false);
+			document.addEventListener('touchmove', this.#handleMoveTouch.bind(this), false);
 			requestAnimationFrame(this.#draw.bind(this));
 			this.#disableButtons(true);
 			break;
@@ -179,11 +208,6 @@ export default class Main {
 		default:
 			throw new Error('Sorry! There is no such a button!');
 		}
-	}
-
-	#mouseMoveHandler(event) {
-		const relativeX = event.offsetX - canvas.offsetLeft;
-		if (relativeX > 0 && relativeX < canvas.width) this.#player1.paddle.paddleStartSize = relativeX - paddleWidth / 2;
 	}
 
 	#checkIsWin(player) {
@@ -214,8 +238,10 @@ export default class Main {
 				// eslint-disable-next-line no-alert
 				alert(`Player ${player === this.#player1 ? '2' : '1'} win!`);
 				this.#context.clearRect(0, 0, gameFieldInnerWidth, gameFieldInnerHeight);
+				this.#setMobileOptions(false);
 				this.#disableButtons(false);
 				canvas.removeEventListener('mousemove', this.#mouseMoveHandler.bind(this), false);
+				document.removeEventListener('touchmove', this.#handleMoveTouch.bind(this), false);
 			}
 		}
 		return cancelDraw;

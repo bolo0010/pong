@@ -12,6 +12,7 @@ module.exports = {
 		path: path.join(__dirname, '../', 'dist'),
 	},
 	devServer: {
+		host: '192.168.0.187',
 		port: 9000,
 		open: true,
 		hot: true,

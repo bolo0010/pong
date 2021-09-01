@@ -1,0 +1,51 @@
+@import variables
+
+html
+  height: 100%
+  body
+    height: 100%
+    width: 100%
+    margin: 0
+    padding: 0
+    position: static
+    .container
+      display: block
+      width: 100%
+      height: 100%
+      top: 0
+      left: 0
+      transform: none
+      .game-field
+        border: none
+        display: block
+        position: absolute
+        width: 100%
+        height: 100%
+      .game-scoreboard
+        margin: 0
+        display: flex
+        justify-content: space-between
+        position: fixed
+        top: 50%
+        left: 0
+        transform: translateY(-50%)
+        opacity: 0.3
+        .game-scoreboard__players
+          align-items: center
+          margin: 0
+          padding: calc(#{$padding} * 0.8)
+          .game-scoreboard__player
+            margin: 0
+      .game-options
+        position: relative
+        margin: 0
+        top: 50%
+        height: 100%
+        transform: translateY(-50%)
+        justify-content: space-around
+        align-items: flex-end
+        .game-options__buttons
+          font-size: calc(#{$font-size} * 1.25)
+          padding: calc(#{$padding} * 1.1) 0
+          width: calc(#{$button-size} * 3)
+          opacity: 1

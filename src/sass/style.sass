@@ -1,67 +1,12 @@
-@import "variables"
+@import "desktop"
 
-body
-  background-color: $background-color
-  font-family: $font-family
-  height: 100vh
-  width: 100%
-  margin: 0
-  padding: 0
-  position: relative
-  .container
-    display: flex
-    width: 70%
-    height: 70%
-    position: relative
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%)
-    .game-scoreboard
-      margin: calc(#{$margin} * 3) calc(#{$margin} * 3)
-      flex-grow: 2
-      display: flex
-      justify-content: space-around
-      flex-direction: column
-      .game-scoreboard__players
-        font-size: calc(#{$font-size} * 2)
-        color: $font-color
-        border: $border
-        padding: $padding
-        display: flex
-        flex-direction: column
-        justify-content: space-around
-        text-align: center
-        .game-scoreboard__player
-          margin: $margin 0
-    .game-field
-      border: $border
-      flex-grow: 12
-      position: relative
-    .game-field__canvas
-      width: 100%
-      height: 100%
-      cursor: none
-    .game-options
-      margin: calc(#{$margin} * 3) calc(#{$margin} * 3)
-      display: flex
-      flex-direction: column
-      flex-grow: 1
-      justify-content: space-between
-      .game-options__buttons
-        color: $font-color
-        border: $border
-        font-size: calc(#{$font-size} * 1.5)
-        padding: calc(#{$padding} * 1.5) 0
-        height: $button-size
-        width: calc(#{$button-size} * 4)
-        cursor: pointer
-        text-align: center
-        &:hover
-          color: $background-color
-          background-color: $font-color
-      .game-options__buttons--disabled
-        color: gray
-        pointer-events: none
-      .game-options__buttons--on
-        color: black
-        background-color: yellow
+@media (max-width: 1024px) and (orientation: portrait)
+  html body .container
+    display: none
+
+@media (max-width: 1024px) and (orientation: landscape)
+  @import "mobile"
+
+
+
+
