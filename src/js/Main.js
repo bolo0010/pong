@@ -1,10 +1,8 @@
 import {
-	aiPaddleDrawSpeed,
+	aiPaddleDrawSpeed, ballCountdown,
 	ballRadius,
 	canvas,
 	difficulty,
-	gameFieldInnerHeight,
-	gameFieldInnerWidth,
 	paddleWidth,
 	pointsToWin,
 } from './variables';
@@ -13,6 +11,7 @@ import Player from './Player';
 import Ai from './Ai';
 import Scoreboard from './Scoreboard';
 import getCanvas from './canvas';
+import Field from './Field';
 
 export default class Main {
 	#difficulty;
@@ -36,6 +35,8 @@ export default class Main {
 	#debugMode = false;
 
 	#drawDebug;
+
+	#timeout;
 
 	constructor() {
 		this.setDifficulty('easy');
@@ -162,8 +163,9 @@ export default class Main {
 			if (e.target.hasAttribute('dataset', 'data-started')) {
 				this.#setMobileOptions(false);
 				cancelAnimationFrame(this.#requestAnimationFrameID);
-				this.#context.clearRect(0, 0, gameFieldInnerWidth, gameFieldInnerHeight);
+				this.#context.clearRect(0, 0, Field.gameFieldInnerWidth, Field.gameFieldInnerHeight);
 				this.#disableButtons(false);
+				clearTimeout(this.#timeout);
 				canvas.removeEventListener('mousemove', this.#mouseMoveHandler.bind(this), false);
 				document.removeEventListener('touchmove', this.#handleMoveTouch.bind(this), false);
 				break;
@@ -181,7 +183,7 @@ export default class Main {
 			this.#randomBallStartDirection();
 			canvas.addEventListener('mousemove', this.#mouseMoveHandler.bind(this), false);
 			document.addEventListener('touchmove', this.#handleMoveTouch.bind(this), false);
-			requestAnimationFrame(this.#draw.bind(this));
+			this.#timeout = setTimeout(this.#draw.bind(this), ballCountdown);
 			this.#disableButtons(true);
 			break;
 		}
@@ -222,18 +224,19 @@ export default class Main {
 			cancelDraw = true;
 			const isWinner = this.#checkIsWin(player !== this.#player1);
 			if (!isWinner) {
-				this.#context.clearRect(0, 0, gameFieldInnerWidth, gameFieldInnerHeight);
+				this.#context.clearRect(0, 0, Field.gameFieldInnerWidth, Field.gameFieldInnerHeight);
 				this.#ball = new Ball(this.#context, this.#difficulty);
 				this.#debugBall = new Ball(this.#context, this.#difficulty);
 				this.#ball.createBall(false);
 				this.#debugBall.createBall(true);
 				this.#drawDebug = true;
 				this.#randomBallStartDirection();
-				requestAnimationFrame(this.#draw.bind(this));
+				clearTimeout(this.#timeout);
+				this.#timeout = setTimeout(this.#draw.bind(this), ballCountdown);
 			} else {
 				// eslint-disable-next-line no-alert
 				alert(`Player ${player === this.#player1 ? '2' : '1'} win!`);
-				this.#context.clearRect(0, 0, gameFieldInnerWidth, gameFieldInnerHeight);
+				this.#context.clearRect(0, 0, Field.gameFieldInnerWidth, Field.gameFieldInnerHeight);
 				this.#setMobileOptions(false);
 				this.#disableButtons(false);
 				canvas.removeEventListener('mousemove', this.#mouseMoveHandler.bind(this), false);
@@ -245,14 +248,14 @@ export default class Main {
 
 	#draw() {
 		let cancelDraw = false;
-		this.#context.clearRect(0, 0, gameFieldInnerWidth, gameFieldInnerHeight);
+		this.#context.clearRect(0, 0, Field.gameFieldInnerWidth, Field.gameFieldInnerHeight);
 		this.#ball.drawBall(false, this.#debugMode);
 		this.#debugBall.drawBall(true, this.#debugMode);
 		this.#player1.paddle.drawPaddle();
 		this.#player2.paddle.drawPaddle();
 		for (let i = aiPaddleDrawSpeed; i > 0; i -= 1) this.#player2.ai(this.#debugBall.ballXPosition);
 		// debugBall
-		if (this.#debugBall.ballXPosition + this.#debugBall.debugBallMoveChangeX > gameFieldInnerWidth - ballRadius || this.#debugBall.ballXPosition + this.#debugBall.debugBallMoveChangeX < ballRadius) {
+		if (this.#debugBall.ballXPosition + this.#debugBall.debugBallMoveChangeX > Field.gameFieldInnerWidth - ballRadius || this.#debugBall.ballXPosition + this.#debugBall.debugBallMoveChangeX < ballRadius) {
 			this.#debugBall.debugBallMoveChangeX = -this.#debugBall.debugBallMoveChangeX;
 		}
 		if (this.#debugBall.ballYPosition + this.#debugBall.debugBallMoveChangeY > canvas.height - ballRadius || this.#debugBall.ballYPosition + this.#debugBall.debugBallMoveChangeY < ballRadius) {
@@ -260,13 +263,13 @@ export default class Main {
 			this.#debugBall.debugBallMoveChangeY = -this.#debugBall.debugBallMoveChangeY;
 		}
 		// ball
-		if (this.#ball.ballXPosition + this.#ball.ballMoveChangeX > gameFieldInnerWidth - ballRadius || this.#ball.ballXPosition + this.#ball.ballMoveChangeX < ballRadius) {
+		if (this.#ball.ballXPosition + this.#ball.ballMoveChangeX > Field.gameFieldInnerWidth - ballRadius || this.#ball.ballXPosition + this.#ball.ballMoveChangeX < ballRadius) {
 			this.#ball.ballMoveChangeX = -this.#ball.ballMoveChangeX;
 		}
 		if (this.#ball.ballYPosition + this.#ball.ballMoveChangeY < ballRadius) {
 			this.#drawDebug = true;
 			cancelDraw = this.#paddleCollisions(this.#player2);
-		} else if (this.#ball.ballYPosition + this.#ball.ballMoveChangeY > gameFieldInnerHeight - ballRadius) {
+		} else if (this.#ball.ballYPosition + this.#ball.ballMoveChangeY > Field.gameFieldInnerHeight - ballRadius) {
 			this.#drawDebug = true;
 			cancelDraw = this.#paddleCollisions(this.#player1);
 		}

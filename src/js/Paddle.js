@@ -1,6 +1,7 @@
 import {
-	paddleWidth, gameFieldInnerWidth, gameFieldInnerHeight, paddleColor,
+	paddleWidth, paddleColor,
 } from './variables';
+import Field from './Field';
 
 export default class Paddle {
 	#context
@@ -28,7 +29,7 @@ export default class Paddle {
 	drawPaddle() {
 	  this.#context.beginPath();
 		// eslint-disable-next-line max-len
-	  this.#context.rect(this.#paddleStartSize, this.#top ? 0 : gameFieldInnerHeight - 10, paddleWidth, 10);
+	  this.#context.rect(this.#paddleStartSize, this.#top ? 0 : Field.gameFieldInnerHeight - 10, paddleWidth, 10);
 	  this.#context.fillStyle = this.#color;
 	  this.#context.fill();
 	  this.#context.stroke();
@@ -36,7 +37,7 @@ export default class Paddle {
 	}
 
 	createPaddle() {
-	  this.#paddleStartSize = Math.random() * ((gameFieldInnerWidth - paddleWidth) - 10) + 10;
+	  this.#paddleStartSize = Math.random() * ((Field.gameFieldInnerWidth - paddleWidth) - 10) + 10;
 	  this.drawPaddle(this.#paddleStartSize);
 	  return this.#paddleStartSize;
 	}

@@ -23,8 +23,6 @@ export const easySpeedDebugBall = 4.8;
 export const mediumSpeedDebugBall = 6.9;
 export const hardSpeedDebugBall = 8.3;
 
-export const gameField = document.querySelector('.game-field');
+export const ballCountdown = 1000;
 
 export const canvas = document.querySelector('.game-field__canvas');
-export const gameFieldInnerHeight = gameField.clientHeight;
-export const gameFieldInnerWidth = gameField.clientWidth;

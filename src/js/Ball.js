@@ -1,12 +1,11 @@
 import {
 	ballRadius,
-	gameFieldInnerWidth,
-	gameFieldInnerHeight,
 	easySpeedBall,
 	mediumSpeedBall,
 	hardSpeedBall,
 	easySpeedDebugBall, mediumSpeedDebugBall, hardSpeedDebugBall, ballColor,
 } from './variables';
+import Field from './Field';
 
 export default class Ball {
     #context
@@ -100,8 +99,8 @@ export default class Ball {
     }
 
     createBall(debug, debugMode) {
-    	this.#ballXPosition = gameFieldInnerWidth / 2;
-    	this.#ballYPosition = gameFieldInnerHeight / 2;
+    	this.#ballXPosition = Field.gameFieldInnerWidth / 2;
+    	this.#ballYPosition = Field.gameFieldInnerHeight / 2;
     	this.drawBall(debug, debugMode);
     }
 }

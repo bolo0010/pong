@@ -1,7 +1,9 @@
-import { gameFieldInnerHeight, gameFieldInnerWidth, canvas } from './variables';
+import { canvas } from './variables';
+import Field from './Field';
 
 export default function getCanvas() {
-	canvas.width = gameFieldInnerWidth;
-	canvas.height = gameFieldInnerHeight;
+	Field.resize();
+	canvas.width = Field.gameFieldInnerWidth;
+	canvas.height = Field.gameFieldInnerHeight;
 	return canvas.getContext('2d');
 }
