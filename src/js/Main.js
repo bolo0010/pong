@@ -247,6 +247,7 @@ export default class Main {
 	}
 
 	#draw() {
+		screen.orientation.onchange = () => this.#context = getCanvas();
 		let cancelDraw = false;
 		this.#context.clearRect(0, 0, Field.gameFieldInnerWidth, Field.gameFieldInnerHeight);
 		this.#ball.drawBall(false, this.#debugMode);
