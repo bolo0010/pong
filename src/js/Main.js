@@ -4,7 +4,7 @@ import {
 	canvas,
 	difficulty,
 	paddleWidth,
-	pointsToWin,
+	pointsToWin, reloadPageOnRestartGame,
 } from './variables';
 import Ball from './Ball';
 import Player from './Player';
@@ -168,6 +168,7 @@ export default class Main {
 				clearTimeout(this.#timeout);
 				canvas.removeEventListener('mousemove', this.#mouseMoveHandler.bind(this), false);
 				document.removeEventListener('touchmove', this.#handleMoveTouch.bind(this), false);
+				if (reloadPageOnRestartGame) window.location.reload();
 				break;
 			}
 			this.#context = getCanvas();
@@ -241,6 +242,7 @@ export default class Main {
 				this.#disableButtons(false);
 				canvas.removeEventListener('mousemove', this.#mouseMoveHandler.bind(this), false);
 				document.removeEventListener('touchmove', this.#handleMoveTouch.bind(this), false);
+				if (reloadPageOnRestartGame) window.location.reload();
 			}
 		}
 		return cancelDraw;

@@ -23,27 +23,23 @@ html
         height: 100%
       .game-scoreboard
         margin: 0
-        display: flex
-        justify-content: space-between
         position: fixed
         top: 50%
         left: 0
         transform: translateY(-50%)
         opacity: 0.3
         .game-scoreboard__players
-          align-items: center
-          margin: 0
           padding: calc(#{$padding} * 0.8)
+          margin: 0
           .game-scoreboard__player
             margin: 0
       .game-options
-        position: relative
+        height: calc((#{$padding} * 1.1)*4)px
+        position: fixed
         margin: 0
         top: 50%
-        height: 100%
+        right: 0
         transform: translateY(-50%)
-        justify-content: space-around
-        align-items: flex-end
         .game-options__buttons
           font-size: calc(#{$font-size} * 1.25)
           padding: calc(#{$padding} * 1.1) 0

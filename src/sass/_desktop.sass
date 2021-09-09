@@ -12,15 +12,15 @@ html
     position: relative
     .container
       display: flex
-      width: 70%
+      width: 100%
       height: 70%
       position: relative
       top: 50%
       left: 50%
       transform: translate(-50%, -50%)
+      justify-content: center
       .game-scoreboard
         margin: calc(#{$margin} * 3) calc(#{$margin} * 3)
-        flex-grow: 2
         display: flex
         justify-content: space-around
         flex-direction: column
@@ -37,7 +37,6 @@ html
             margin: $margin 0
       .game-field
         border: $border
-        flex-grow: 12
         position: relative
       .game-field__canvas
         width: 100%
@@ -47,7 +46,6 @@ html
         margin: calc(#{$margin} * 3) calc(#{$margin} * 3)
         display: flex
         flex-direction: column
-        flex-grow: 1
         justify-content: space-between
         .game-options__buttons
           color: $font-color
