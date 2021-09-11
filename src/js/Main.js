@@ -155,6 +155,11 @@ export default class Main {
 		}
 	}
 
+	#fixStyles() {
+		document.querySelector('.game-scoreboard').style.opacity = 1;
+		document.querySelector('.game-options').style.opacity = 1;
+	}
+
 	#handleListenersOnButtons = (e) => {
 		const dataButtonAttribute = e.target.dataset.button;
 		switch (dataButtonAttribute) {
@@ -169,6 +174,7 @@ export default class Main {
 				canvas.removeEventListener('mousemove', this.#mouseMoveHandler.bind(this), false);
 				document.removeEventListener('touchmove', this.#handleMoveTouch.bind(this), false);
 				if (reloadPageOnRestartGame) window.location.reload();
+				if (window.innerWidth >= 1024) this.#fixStyles();
 				break;
 			}
 			this.#context = getCanvas();
@@ -186,6 +192,7 @@ export default class Main {
 			document.addEventListener('touchmove', this.#handleMoveTouch.bind(this), false);
 			this.#timeout = setTimeout(this.#draw.bind(this), ballCountdown);
 			this.#disableButtons(true);
+			if (window.innerWidth >= 1024) this.#fixStyles();
 			break;
 		}
 		case 'points':
