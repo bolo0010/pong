@@ -14,7 +14,7 @@
     "url": "git+https://github.com/bolo0010/pong.v2.git"
   },
   "author": "Artur Masłowski",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bolo0010/pong.v2/issues"
   },
