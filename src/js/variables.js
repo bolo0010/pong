@@ -27,4 +27,4 @@ export const ballCountdown = 1000;
 
 export const canvas = document.querySelector('.game-field__canvas');
 
-export const reloadPageOnRestartGame = true;
+export const reloadPageOnRestartGame = false;
